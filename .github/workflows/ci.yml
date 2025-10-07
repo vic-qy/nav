@@ -4,6 +4,21 @@ on:
     branches:
       - master
       - main
+  workflow_dispatch:
+    # （可选）添加手动触发时的输入参数（按需配置，不想要可删除此部分）
+    inputs:
+      deployEnvironment:
+        description: '部署环境（用于区分测试/正式，仅日志标记用）'
+        required: true
+        default: 'production'  # 默认值
+        type: choice  # 下拉选择框类型（可选类型：choice/string/boolean/number）
+        options:
+          - production  # 正式环境
+          - test        # 测试环境
+      deployNote:
+        description: '部署备注（记录本次手动触发的原因）'
+        required: false  # 非必填
+        type: string     # 文本输入框
 jobs:
   build:
     runs-on: ubuntu-latest
